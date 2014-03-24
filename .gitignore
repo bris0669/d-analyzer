@@ -1,0 +1,10 @@
+# -*- mode: gitignore; -*-
+
+# emacs
+*~
+\#*\#
+
+# d language
+
+# build
+www/cgi-bin/
