@@ -1,5 +1,30 @@
 <html>
+<head>
+<title>d-analyzer</title>
+<link rel="stylesheet" type="text/css" href="css/default.css" />
 <body>
-d-analyzer
+d-analyzer ss
+<div id="content">
+	<div id="sourcecode">
+		<div class="headerText">Source Code:</div>
+			<input id="submitBTN" type="button" value="Submit &raquo;" onclick="submitTryit()">
+			<form style="margin:0px" action="tryit_view.asp" method="post" target="view" id="tryitform" name="tryitform" onsubmit="validateForm();">
+				
+				<textarea class="code_input" id="textareaCode" wrap="logical" rows="10" cols="50">test test
+</textarea>
+				<input type="hidden" name="code" id="code" />
+				<input type="hidden" id="bt" name="bt" />
+			</form>
+	</div>
+	<div id="result">
+		<div class="headerText">Result:</div>
+		aaa</div>	
+	<div style="clear:both;"></div>
+	<div id="footer">
+		Edit the code above and click "Submit" to see the result.
+	</div>
+</div>
+
+</form> 
 </body>
 </html>
