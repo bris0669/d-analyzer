@@ -7,8 +7,8 @@
 $(document).ready(function(){
   $("#submitBTN").click(function(){
     /*$(this).hide();*/
-    var inputSourceCode = $("#textareaCode").html();
-    //alert(inputSourceCode);
+    var inputSourceCode = $("#textareaCode").val();
+    alert(inputSourceCode);
     $("#preOutputCode").load("cgi-bin/service", { "isc": inputSourceCode});
   });
 });

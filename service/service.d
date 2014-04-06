@@ -2,6 +2,7 @@ import std.stdio;
 import std.process;
 import std.uri;
 import std.string;
+import std.array;
 
 class Service {
 	this() {
@@ -20,10 +21,11 @@ class Service {
 		string line;
     if ((line = stdin.readln()) !is null) {
 			line = line[4..$];
-      writeln(line);
+      //writeln(line);
 			string inputSourceCode = decode(line);
 			dchar[dchar] translationTable = ['+' : ' '];
 			inputSourceCode = translate(inputSourceCode, translationTable);
+			inputSourceCode = replace(inputSourceCode, "%3B", ";");
 			writeln(inputSourceCode);
 		}
 
