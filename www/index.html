@@ -7,7 +7,7 @@
 $(document).ready(function(){
   $("#submitBTN").click(function(){
     /*$(this).hide();*/
-    $("#preOutputCode").load("cgi-bin/service");
+    $("#preOutputCode").load("cgi-bin/service", { 'colors[]' : ["Red","Green","Blue"]});
   });
 });
 </script>
@@ -16,8 +16,8 @@ d-analyzer ss
 <div id="content">
 	<div id="sourcecode">
 		<div class="headerText">Source Code:</div>
-			<input id="submitBTN" type="button" value="Submit &raquo;" onclick="submitTryit()">
-			<form style="margin:0px" action="tryit_view.asp" method="post" target="view" id="tryitform" name="tryitform" onsubmit="validateForm();">
+			<input id="submitBTN" type="button" value="Submit &raquo;">
+			<form style="margin:0px" id="tryitform" name="tryitform">
 				
 				<textarea class="code_input" id="textareaCode" wrap="logical" rows="10" cols="50">test test
 </textarea>

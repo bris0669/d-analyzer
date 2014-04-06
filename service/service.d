@@ -13,6 +13,12 @@ class Service {
 		
     writeln("Hello, world!");
 		writeln(environment.toAA());
+
+
+		string line;
+    while ((line = stdin.readln()) !is null)
+        write(line);
+
 	}
 }
  
