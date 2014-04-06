@@ -1,5 +1,7 @@
 import std.stdio;
 import std.process;
+import std.uri;
+import std.string;
 
 class Service {
 	this() {
@@ -10,14 +12,22 @@ class Service {
 		//auto dmd = execute(["ldc2", "myapp.d"]);
 		//if (dmd.status != 0) writeln("Compilation failed:\n", dmd.output);
 
-		
-    writeln("Hello, world!");
-		writeln(environment.toAA());
+    //writeln("Hello, world!");
+		//writeln(environment.toAA());
 
+		string logBuffer = "";
 
 		string line;
-    while ((line = stdin.readln()) !is null)
-        write(line);
+    if ((line = stdin.readln()) !is null) {
+			line = line[4..$];
+      writeln(line);
+			string inputSourceCode = decode(line);
+			dchar[dchar] translationTable = ['+' : ' '];
+			inputSourceCode = translate(inputSourceCode, translationTable);
+			writeln(inputSourceCode);
+		}
+
+		writeln(logBuffer);
 
 	}
 }
