@@ -10,28 +10,28 @@ class Service {
 
 	void Main() {
 		write("Content-type: text/html\n\n");
+		string inputSourceCode = GetInputSourceCode();
+		writeln(inputSourceCode);		
 		//auto dmd = execute(["ldc2", "myapp.d"]);
 		//if (dmd.status != 0) writeln("Compilation failed:\n", dmd.output);
-
-    //writeln("Hello, world!");
-		//writeln(environment.toAA());
-
 		string logBuffer = "";
+		writeln(logBuffer);
+	}
 
+	string GetInputSourceCode() {
+		string inputSourceCode = "";
 		string line;
     if ((line = stdin.readln()) !is null) {
 			line = line[4..$];
-      //writeln(line);
-			string inputSourceCode = decode(line);
+			inputSourceCode = decode(line);
 			dchar[dchar] translationTable = ['+' : ' '];
 			inputSourceCode = translate(inputSourceCode, translationTable);
 			inputSourceCode = replace(inputSourceCode, "%3B", ";");
-			writeln(inputSourceCode);
+			inputSourceCode = replace(inputSourceCode, "%2C", ",");
 		}
-
-		writeln(logBuffer);
-
+		return inputSourceCode;
 	}
+
 }
  
 void main()

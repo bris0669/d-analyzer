@@ -8,31 +8,32 @@ $(document).ready(function(){
   $("#submitBTN").click(function(){
     /*$(this).hide();*/
     var inputSourceCode = $("#textareaCode").val();
-    alert(inputSourceCode);
+    //alert(inputSourceCode);
     $("#preOutputCode").load("cgi-bin/service", { "isc": inputSourceCode});
   });
 });
 </script>
 <body>
-d-analyzer ss
+d-analyzer - Static analysis for the D programming language
 <div id="content">
 	<div id="sourcecode">
 		<div class="headerText">Source Code:</div>
 			<input id="submitBTN" type="button" value="Submit &raquo;">
 			<form style="margin:0px" id="tryitform" name="tryitform">
 				
-				<textarea class="code_input" id="textareaCode" wrap="logical" rows="10" cols="50">test test
+				<textarea class="code_input" id="textareaCode" wrap="logical" rows="10" cols="50">
+import std.stdio;
+
+void main() {
+    writeln("Hello, world!");
+}
 </textarea>
 			</form>
 	</div>
 	<div id="result">
 		<div class="headerText">Result:</div>
 <pre class="result_output" id="preOutputCode">
-Text in a pre element
-is displayed in a fixed-width
-font, and it preserves
-both      spaces and
-line breaks
+
 </pre>
 	</div>	
 	<div style="clear:both;"></div>
