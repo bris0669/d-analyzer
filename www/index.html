@@ -7,9 +7,7 @@
 $(document).ready(function(){
   $("#submitBTN").click(function(){
     /*$(this).hide();*/
-    $( "#preOutputCode" ).load( "cgi-bin/service", function() {
-    alert( "Load was performed." );
-    });
+    $("#preOutputCode").load("cgi-bin/service");
   });
 });
 </script>
