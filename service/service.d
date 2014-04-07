@@ -14,18 +14,9 @@ class Service {
 
 		write("Content-type: text/html\n\n");
 		try {
-		string inputSourceCode = ""; //GetInputSourceCode();
-		//writeln(inputSourceCode);		
-		//auto dmd = execute(["ldc2", "myapp.d"]);
-		//if (dmd.status != 0) writeln("Compilation failed:\n", dmd.output);
-		//string logBuffer = "";
-		//writeln(logBuffer);
-
-		//string inputFilename = GetTemporaryFilename
-
-		LlvmirRepresentation llvmirRepresentation = new LlvmirRepresentation(inputSourceCode);
-		writeln(llvmirRepresentation.GetRepresentation());
-
+			string inputSourceCode = GetInputSourceCode();
+			LlvmirRepresentation llvmirRepresentation = new LlvmirRepresentation(inputSourceCode);
+			writeln(llvmirRepresentation.GetRepresentation());
 		} catch(Exception e) {
 			writeln(e);
 		}
