@@ -15,6 +15,7 @@ class Service {
 		write("Content-type: text/html\n\n");
 		try {
 			string inputSourceCode = GetInputSourceCode();
+			//writeln(inputSourceCode);
 			LlvmirRepresentation llvmirRepresentation = new LlvmirRepresentation(inputSourceCode);
 			writeln(llvmirRepresentation.GetRepresentation());
 		} catch(Exception e) {
@@ -34,6 +35,10 @@ class Service {
 			inputSourceCode = translate(inputSourceCode, translationTable);
 			inputSourceCode = replace(inputSourceCode, "%3B", ";");
 			inputSourceCode = replace(inputSourceCode, "%2C", ",");
+			inputSourceCode = replace(inputSourceCode, "%3D", "=");
+			inputSourceCode = replace(inputSourceCode, "%2F", "/");
+			inputSourceCode = replace(inputSourceCode, "%3A", ":");
+
 		}
 		return inputSourceCode;
 	}
