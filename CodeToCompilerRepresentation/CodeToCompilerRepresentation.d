@@ -1,5 +1,6 @@
 import std.stdio;
 import std.getopt;
+import DCompiler;
 
 enum ProgrammingLanguage { D, CPP }
 
@@ -12,5 +13,12 @@ void main(string[] args) {
 	while ((line = stdin.readln()) !is null)
 		sourceCode ~= line;
 
-	writeln(sourceCode);
+	string compilerRepresentation;
+	if (programmingLanguage == ProgrammingLanguage.D) {
+		DCompiler dCompiler = new DCompiler(sourceCode);
+		compilerRepresentation = dCompiler.Compile();
+	} else if (programmingLanguage == ProgrammingLanguage.CPP) {
+	}
+
+	writeln(compilerRepresentation);
 }
