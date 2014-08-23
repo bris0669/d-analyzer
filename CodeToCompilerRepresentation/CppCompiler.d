@@ -3,7 +3,7 @@ import Log;
 import std.process;
 import std.conv;
 
-class DCompiler {
+class CppCompiler {
 	string sourceCode;
 
 	this(string sourceCode) {
@@ -11,7 +11,7 @@ class DCompiler {
 	}
 
 	string Compile() {
-		string sourceFile = "/tmp/code.d";
+		string sourceFile = "/tmp/code.cpp";
 		std.file.write(sourceFile, sourceCode);
 		
 		return GetVerboseOutput(sourceFile);
@@ -19,14 +19,12 @@ class DCompiler {
 
 	string GetVerboseOutput(string sourceFile) {
 		string result;
-		auto process = execute(["/home/cbobby/.usrlocal/bin/ldc2", 
-		  "-vv", "-O0", "-output-ll", sourceFile]);
+		auto process = execute(["/usr/bin/clang", "-v", sourceFile, "-std=c++11", "-S", "-emit-llvm", "-o", "-"]);
 		if ((process.status != 0) && (process.status != 1)) {
 			LogInfo("Compilation failed. Exit status " ~ to!string(process.status) ~ ". Output:\n" ~ process.output);
 		} else {
 			result = process.output;
 		}
-		std.file.remove("code.ll");
 		return result;
 	}
 
