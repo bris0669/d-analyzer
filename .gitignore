@@ -11,3 +11,6 @@
 # build
 www/cgi-bin/
 bin/
+
+# LDC output
+*.ll
