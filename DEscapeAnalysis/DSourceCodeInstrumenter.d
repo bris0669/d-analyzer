@@ -11,7 +11,7 @@ class DSourceCodeInstrumenter {
 	}
 
 	string Instrument() {
-		string result;
+		string result = sourceCode;
 		return result;
 	}
 
