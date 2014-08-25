@@ -2,6 +2,8 @@ import std.file;
 import Log;
 import std.process;
 import std.conv;
+import std.regex;
+import std.string;
 
 class DSourceCodeInstrumenter {
 	string sourceCode;
@@ -11,8 +13,19 @@ class DSourceCodeInstrumenter {
 	}
 
 	string Instrument() {
-		string result = sourceCode;
+		string result;
+
+		foreach (int lineNumber, line; splitLines(sourceCode))
+			result ~= InstrumentLine(lineNumber, line);
+
 		return result;
+	}
+
+	string InstrumentLine(int lineNumber, string line) {
+		return replaceFirst(line, 
+			regex(r"\bnew\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\(\)\;"), 
+		  "$& static auto new_$1_" ~ to!string(lineNumber) ~ " = typeid(TransitiveBaseTypeTuple!$1)");
+												//return line;
 	}
 
 }
