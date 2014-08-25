@@ -22,10 +22,15 @@ class DSourceCodeInstrumenter {
 	}
 
 	string InstrumentLine(int lineNumber, string line) {
-		return replaceFirst(line, 
+		string result = replaceFirst(line, 
 			regex(r"\bnew\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\(\)\;"), 
 		  "$& static auto new_$1_" ~ to!string(lineNumber) ~ " = typeid(TransitiveBaseTypeTuple!$1)");
-												//return line;
+
+		result = replaceFirst(result, 
+			regex(r"\bdelete\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\;"), 
+		  "$& static auto delete_$1_" ~ to!string(lineNumber) ~ " = fullyQualifiedName!(typeof($1));");
+												
+		return result;
 	}
 
 }
