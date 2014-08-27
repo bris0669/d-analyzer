@@ -2,6 +2,7 @@ import std.file;
 import Log;
 import std.process;
 import std.conv;
+import ProcessResult;
 
 class DCompiler {
 	string sourceCode;
@@ -10,23 +11,28 @@ class DCompiler {
 		this.sourceCode = sourceCode;
 	}
 
-	string Compile() {
+	ProcessResult Compile() {
 		string sourceFile = "/tmp/code.d";
 		std.file.write(sourceFile, sourceCode);
 		
 		return GetVerboseOutput(sourceFile);
 	}
 
-	string GetVerboseOutput(string sourceFile) {
-		string result;
+	ProcessResult GetVerboseOutput(string sourceFile) {
+		ProcessResult result = new ProcessResult();
 		auto process = execute(["/home/cbobby/.usrlocal/bin/ldc2", 
 		  "-vv", "-O0", "-output-ll", sourceFile]);
-		if ((process.status != 0) && (process.status != 1)) {
+		//if ((process.status != 0) && (process.status != 1)) {
+		result.ExitStatus = process.status;
+		if (process.status != 0) {
+			result.StderrContent = process.output;
 			LogInfo("Compilation failed. Exit status " ~ to!string(process.status) ~ ". Output:\n" ~ process.output);
 		} else {
-			result = process.output;
+			result.StdoutContent = process.output;
 		}
-		std.file.remove("code.ll");
+		const string llvmIRFile = "code.ll";
+		if (exists(llvmIRFile))
+			std.file.remove(llvmIRFile);
 		return result;
 	}
 

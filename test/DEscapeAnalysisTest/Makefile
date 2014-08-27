@@ -7,7 +7,7 @@ build:
 	ldc2 -gc *.d ../../Shared/*.d ../../ThirdParty/dunit/*.d $(PRODUCTION_FILES) -of=../../bin/$(TARGET)
 
 test:
-	../../bin/$(TARGET)
+	cd ../../bin && pwd && ./$(TARGET)
 
 clean:
 	rm ../../bin/$(TARGET)

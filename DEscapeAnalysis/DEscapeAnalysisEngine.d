@@ -33,10 +33,10 @@ class DEscapeAnalysisEngine {
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
 
 		Subprocess subprocess = new Subprocess();
-		SubprocessResult subprocessResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
+		ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
 
-		if (subprocessResult.StderrContent != "") {
-			result.CompilerErrors = subprocessResult.StderrContent;
+		if (processResult.StderrContent != "") {
+			result.CompilerErrors = processResult.StderrContent;
 			return result;
 		}
 

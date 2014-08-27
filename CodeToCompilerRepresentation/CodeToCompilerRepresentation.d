@@ -2,6 +2,7 @@ import std.stdio;
 import std.getopt;
 import DCompiler;
 import CppCompiler;
+import ProcessResult;
 
 enum ProgrammingLanguage { D, CPP }
 
@@ -14,14 +15,18 @@ void main(string[] args) {
 	while ((line = stdin.readln()) !is null)
 		sourceCode ~= line;
 
-	string compilerRepresentation;
+	ProcessResult processResult;
 	if (programmingLanguage == ProgrammingLanguage.D) {
 		DCompiler dCompiler = new DCompiler(sourceCode);
-		compilerRepresentation = dCompiler.Compile();
+		processResult = dCompiler.Compile();
 	} else if (programmingLanguage == ProgrammingLanguage.CPP) {
 		CppCompiler cppCompiler = new CppCompiler(sourceCode);
-		compilerRepresentation = cppCompiler.Compile();
+		processResult = cppCompiler.Compile();
 	}
 
-	writeln(compilerRepresentation);
+	if (processResult.StderrContent != "") {
+		writeln(processResult.StderrContent);
+		return;
+	}
+	writeln(processResult.StdoutContent);
 }

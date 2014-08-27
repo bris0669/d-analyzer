@@ -1,15 +1,10 @@
 import std.process;
-
-class SubprocessResult {
-	int ExitStatus;
-	string StdoutContent;
-	string StderrContent;
-}
+import ProcessResult;
 
 class Subprocess {
 
 	SubprocessResult Run(string commandLine, string stdinContent) {
-		SubprocessResult subprocessResult = new SubprocessResult();
+		ProcessResult result = new ProcessResult();
 
 		ProcessPipes processPipes = pipeProcess(commandLine);
 		scope(exit) wait(processPipes.pid);
@@ -18,11 +13,11 @@ class Subprocess {
 		processPipes.stdin.close;
 
 		foreach (line; processPipes.stdout.byLine)
-			subprocessResult.StdoutContent ~= (subprocessResult.StdoutContent != "") ? "\n" ~ line.idup : line.idup;
+			result.StdoutContent ~= (result.StdoutContent != "") ? "\n" ~ line.idup : line.idup;
 		foreach (line; processPipes.stderr.byLine)
-			subprocessResult.StderrContent ~= (subprocessResult.StderrContent != "") ? "\n" ~ line.idup : line.idup;
+			result.StderrContent ~= (result.StderrContent != "") ? "\n" ~ line.idup : line.idup;
 		
-		return subprocessResult;
+		return result;
 	}
 	
 }
