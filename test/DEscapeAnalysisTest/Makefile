@@ -1,5 +1,5 @@
 TARGET = DEscapeAnalysisTest
-PRODUCTION_FILES=../../DEscapeAnalysis/DSourceCodeInstrumenter.d ../../DEscapeAnalysis/Subprocess.d
+PRODUCTION_FILES=../../DEscapeAnalysis/DSourceCodeInstrumenter.d ../../DEscapeAnalysis/Subprocess.d ../../DEscapeAnalysis/DEscapeAnalysisEngine.d
 
 all: build
 
