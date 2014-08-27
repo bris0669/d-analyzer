@@ -16,8 +16,8 @@ class TemporaryShellScript {
 	}
 
 	~this() {
-		//if (exists(Filename))
-			//remove(Filename);
+		if (exists(Filename))
+			remove(Filename);
 	}
 
 }
@@ -28,15 +28,18 @@ class SubprocessTest {
 	@Test
 	public void StdoutStderr_Success() {
 		const string sourceCode = `#!/usr/bin/env bash
+VALUE=$(cat)
+
+echo "$VALUE"
 echo "STDOUT"
 echo "STDERR" > /dev/stderr
 `;
-		auto temporaryShellScript = new TemporaryShellScript(sourceCode);
+		scope temporaryShellScript = new TemporaryShellScript(sourceCode);
 
 		auto subprocess = new Subprocess();
-		SubprocessResult subprocessResult = subprocess.Run(temporaryShellScript.Filename, "STDIN");
+		SubprocessResult subprocessResult = subprocess.Run(temporaryShellScript.Filename, "STDIN\n");
 
-		assertEquals("STDOUT", subprocessResult.StdoutContent);
+		assertEquals("STDIN\nSTDOUT", subprocessResult.StdoutContent);
 		assertEquals("STDERR", subprocessResult.StderrContent);
 	}
 

@@ -18,14 +18,11 @@ class Subprocess {
 		processPipes.stdin.close;
 
 		foreach (line; processPipes.stdout.byLine)
-			subprocessResult.StdoutContent ~= line.idup;
+			subprocessResult.StdoutContent ~= (subprocessResult.StdoutContent != "") ? "\n" ~ line.idup : line.idup;
 		foreach (line; processPipes.stderr.byLine)
-			subprocessResult.StderrContent ~= line.idup;
+			subprocessResult.StderrContent ~= (subprocessResult.StderrContent != "") ? "\n" ~ line.idup : line.idup;
 		
 		return subprocessResult;
 	}
 	
-	// SubprocessResult subprocessResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
-
-	// writeln(subprocessResult.Stdout);
 }
