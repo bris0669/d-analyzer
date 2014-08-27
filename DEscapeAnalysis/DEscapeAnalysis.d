@@ -1,5 +1,6 @@
 import std.stdio;
 import DSourceCodeInstrumenter;
+import Subprocess;
 
 void main(string[] args) {
 	string sourceCode;
@@ -10,5 +11,8 @@ void main(string[] args) {
 	DSourceCodeInstrumenter dSourceCodeInstrumenter = new DSourceCodeInstrumenter(sourceCode);
 	string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
 
-	writeln(instrumentedSourceCode);
+	Subprocess subprocess = new Subprocess();
+	SubprocessResult subprocessResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
+
+	writeln(subprocessResult.StdoutContent);
 }
