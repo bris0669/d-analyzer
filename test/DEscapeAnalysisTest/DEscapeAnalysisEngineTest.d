@@ -38,7 +38,7 @@ void main() {
 
 		StaticAnalysisResult staticAnalysisResult = dEscapeAnalysisEngine.Analyze();
 
-		assertStringContains("test", staticAnalysisResult.CompilerErrors);
+		assertStringContains("Error: unterminated string constant starting at", staticAnalysisResult.CompilerErrors);
 	}
 
 }

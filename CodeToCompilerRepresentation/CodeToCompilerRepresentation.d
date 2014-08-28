@@ -6,7 +6,7 @@ import ProcessResult;
 
 enum ProgrammingLanguage { D, CPP }
 
-void main(string[] args) {
+int main(string[] args) {
 	ProgrammingLanguage programmingLanguage;
 	getopt(args, "lang", &programmingLanguage);
 	
@@ -26,7 +26,8 @@ void main(string[] args) {
 
 	if (processResult.StderrContent != "") {
 		stderr.writeln(processResult.StderrContent);
-		return;
+		return processResult.ExitStatus;
 	}
 	writeln(processResult.StdoutContent);
+	return 0;
 }
