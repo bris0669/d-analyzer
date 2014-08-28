@@ -1,19 +1,7 @@
 import DSourceCodeInstrumenter;
 import Subprocess;
 import std.file;
-
-enum StaticAnalysisWarningLevel {
-	Hint,
-	Warning,
-	Error
-}
-
-class StaticAnalysisWarning {
-	int Line;
-	int Column;
-	StaticAnalysisWarningLevel Level;
-	string Text;
-}
+import DWarningsGenerator;
 
 class StaticAnalysisResult {
 	StaticAnalysisWarning[] Warnings;
