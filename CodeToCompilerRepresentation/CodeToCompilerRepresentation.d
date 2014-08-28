@@ -25,7 +25,7 @@ void main(string[] args) {
 	}
 
 	if (processResult.StderrContent != "") {
-		writeln(processResult.StderrContent);
+		stderr.writeln(processResult.StderrContent);
 		return;
 	}
 	writeln(processResult.StdoutContent);
