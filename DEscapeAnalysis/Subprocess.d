@@ -3,7 +3,7 @@ import ProcessResult;
 
 class Subprocess {
 
-	SubprocessResult Run(string commandLine, string stdinContent) {
+	ProcessResult Run(string commandLine, string stdinContent) {
 		ProcessResult result = new ProcessResult();
 
 		ProcessPipes processPipes = pipeProcess(commandLine);

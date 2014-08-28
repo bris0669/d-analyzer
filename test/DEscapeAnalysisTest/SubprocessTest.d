@@ -5,6 +5,7 @@ import std.uuid;
 import std.file;
 import std.process;
 import std.path;
+import ProcessResult;
 
 class TemporaryShellScript {
 	string Filename;
@@ -37,10 +38,10 @@ echo "STDERR" > /dev/stderr
 		scope temporaryShellScript = new TemporaryShellScript(sourceCode);
 
 		auto subprocess = new Subprocess();
-		SubprocessResult subprocessResult = subprocess.Run(temporaryShellScript.Filename, "STDIN\n");
+		ProcessResult processResult = subprocess.Run(temporaryShellScript.Filename, "STDIN\n");
 
-		assertEquals("STDIN\nSTDOUT", subprocessResult.StdoutContent);
-		assertEquals("STDERR", subprocessResult.StderrContent);
+		assertEquals("STDIN\nSTDOUT", processResult.StdoutContent);
+		assertEquals("STDERR", processResult.StderrContent);
 	}
 
 }
