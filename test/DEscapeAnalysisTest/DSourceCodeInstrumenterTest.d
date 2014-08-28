@@ -22,8 +22,8 @@ class DSourceCodeInstrumenterTest {
 
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
 
-		assertStringContains("new Bar(); static auto new_", instrumentedSourceCode);
-		assertStringContains(" = typeid(TransitiveBaseTypeTuple!", instrumentedSourceCode);
+		assertStringContains("new Bar(); static new_Bar", instrumentedSourceCode);
+		assertStringContains("; alias TransitiveBaseTypeTuple!", instrumentedSourceCode);
 	}
 
 	@Test

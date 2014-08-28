@@ -24,7 +24,7 @@ class DSourceCodeInstrumenter {
 	string InstrumentLine(int lineNumber, string line) {
 		string result = replaceFirst(line, 
 			regex(r"\bnew\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\(\)\;"), 
-		  "$& static auto new_$1_" ~ to!string(lineNumber) ~ " = typeid(TransitiveBaseTypeTuple!$1);");
+		  "$& static new_$1_" ~ to!string(lineNumber) ~ " = fullyQualifiedName!$1; alias TransitiveBaseTypeTuple!$1 new_super_$1_" ~ to!string(lineNumber) ~ ";");
 
 		result = replaceFirst(result, 
 			regex(r"\bdelete\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\;"), 

@@ -32,7 +32,7 @@ class DEscapeAnalysisEngine {
 
 		DSourceCodeInstrumenter dSourceCodeInstrumenter = new DSourceCodeInstrumenter(sourceCode);
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
-
+		//write("/tmp/instrumented.txt", instrumentedSourceCode);
 		Subprocess subprocess = new Subprocess();
 		ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", instrumentedSourceCode);
 
@@ -40,6 +40,10 @@ class DEscapeAnalysisEngine {
 			result.CompilerErrors = processResult.StderrContent;
 			return result;
 		}
+
+		//write("/tmp/compout.txt", processResult.StdoutContent);
+		DWarningsGenerator dWarningsGenerator = new DWarningsGenerator(instrumentedSourceCode, processResult.StdoutContent);
+		result.Warnings ~= dWarningsGenerator.GenerateWarnings(); 
 
 		return result;
 	}

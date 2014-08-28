@@ -6,6 +6,20 @@ class DEscapeAnalysisEngineTest {
 	mixin UnitTest;
 
 	@Test
+	public void CompilerError_Success() {
+		const string sourceCode = `import std.stdio;
+
+void main() {
+  writeln("
+}`;
+		auto dEscapeAnalysisEngine  = new DEscapeAnalysisEngine(sourceCode);
+
+		StaticAnalysisResult staticAnalysisResult = dEscapeAnalysisEngine.Analyze();
+
+		assertStringContains("Error: unterminated string constant starting at", staticAnalysisResult.CompilerErrors);
+	}
+
+	@Test
 	public void MemoryLeak_Success() {
 		const string sourceCode = `import std.stdio;
 import core.memory;
@@ -25,20 +39,6 @@ void main() {
 		StaticAnalysisResult staticAnalysisResult = dEscapeAnalysisEngine.Analyze();
 
 		assertEquals(1, staticAnalysisResult.Warnings.length);
-	}
-
-	@Test
-	public void CompilerError_Success() {
-		const string sourceCode = `import std.stdio;
-
-void main() {
-  writeln("
-}`;
-		auto dEscapeAnalysisEngine  = new DEscapeAnalysisEngine(sourceCode);
-
-		StaticAnalysisResult staticAnalysisResult = dEscapeAnalysisEngine.Analyze();
-
-		assertStringContains("Error: unterminated string constant starting at", staticAnalysisResult.CompilerErrors);
 	}
 
 }
