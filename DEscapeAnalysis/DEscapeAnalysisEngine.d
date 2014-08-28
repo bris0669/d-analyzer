@@ -1,5 +1,6 @@
 import DSourceCodeInstrumenter;
 import Subprocess;
+import std.file;
 
 enum StaticAnalysisWarningLevel {
 	Hint,
@@ -33,7 +34,7 @@ class DEscapeAnalysisEngine {
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
 
 		Subprocess subprocess = new Subprocess();
-		ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
+		ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", instrumentedSourceCode);
 
 		if (processResult.StderrContent != "") {
 			result.CompilerErrors = processResult.StderrContent;

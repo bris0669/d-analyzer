@@ -24,7 +24,7 @@ void main() {
 
 		StaticAnalysisResult staticAnalysisResult = dEscapeAnalysisEngine.Analyze();
 
-		//assertEquals(sourceCode, dSourceCodeInstrumenter.Instrument());
+		assertEquals(1, staticAnalysisResult.Warnings.length);
 	}
 
 	@Test

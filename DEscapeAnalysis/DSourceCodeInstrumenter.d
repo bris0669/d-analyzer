@@ -16,7 +16,7 @@ class DSourceCodeInstrumenter {
 		string result;
 
 		foreach (int lineNumber, line; splitLines(sourceCode))
-			result ~= InstrumentLine(lineNumber, line);
+			result ~= InstrumentLine(lineNumber, line) ~ "\n";
 
 		return result;
 	}
@@ -24,12 +24,15 @@ class DSourceCodeInstrumenter {
 	string InstrumentLine(int lineNumber, string line) {
 		string result = replaceFirst(line, 
 			regex(r"\bnew\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\(\)\;"), 
-		  "$& static auto new_$1_" ~ to!string(lineNumber) ~ " = typeid(TransitiveBaseTypeTuple!$1)");
+		  "$& static auto new_$1_" ~ to!string(lineNumber) ~ " = typeid(TransitiveBaseTypeTuple!$1);");
 
 		result = replaceFirst(result, 
 			regex(r"\bdelete\b\s*([_a-zA-Z][_0-9a-zA-Z]*)\s*\;"), 
 		  "$& static auto delete_$1_" ~ to!string(lineNumber) ~ " = fullyQualifiedName!(typeof($1));");
-												
+							
+		if (0 == lineNumber)
+			result = "import std.traits;\n" ~ result;
+
 		return result;
 	}
 

@@ -7,15 +7,17 @@ class DSourceCodeInstrumenterTest {
 
 	@Test
 	public void NoAllocationOrDeallocation_Success() {
-		const string sourceCode = `import std.io; void main() { writeln("Hello"); } `;
+		const string sourceCode = `import std.io; void main() { writeln("Hello"); }
+`;
 		auto dSourceCodeInstrumenter = new DSourceCodeInstrumenter(sourceCode);
 
-		assertEquals(sourceCode, dSourceCodeInstrumenter.Instrument());
+		assertStringContains(sourceCode, dSourceCodeInstrumenter.Instrument());
 	}
 
 	@Test
 	public void Allocation_Success() {
-		const string sourceCode = `import std.io; void main() { Bar bar = new Bar(); } `;
+		const string sourceCode = `import std.io; void main() { Bar bar = new Bar(); }
+`;
 		auto dSourceCodeInstrumenter = new DSourceCodeInstrumenter(sourceCode);
 
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
@@ -26,7 +28,8 @@ class DSourceCodeInstrumenterTest {
 
 	@Test
 	public void Deallocation_Success() {
-		const string sourceCode = `import std.io; void main() { Bar bar = new Bar(); delete bar; } `;
+		const string sourceCode = `import std.io; void main() { Bar bar = new Bar(); delete bar; }
+`;
 		auto dSourceCodeInstrumenter = new DSourceCodeInstrumenter(sourceCode);
 
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
