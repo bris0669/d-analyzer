@@ -68,7 +68,7 @@ class DWarningsGenerator {
 			result.Line = typeAllocation.LineOfFirstAllocation;
 			if (isGCDisabled) {
 				result.Level = StaticAnalysisWarningLevel.Error;
-				result.Text = format("Possible memory leak. Type '%s' was allocated %d times and was deallocated %d times",
+				result.Text = format("Possible memory leak. Type '%s' was allocated %d times and was deallocated %d times.",
 														 typeAllocation.TypeName, typeAllocation.AllocationCount,
 														 typeAllocation.DeallocationCount);
 			}

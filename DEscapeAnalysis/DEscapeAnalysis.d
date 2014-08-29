@@ -1,5 +1,7 @@
 import std.stdio;
 import DEscapeAnalysisEngine;
+import std.string;
+import std.conv;
 
 void main(string[] args) {
 	string sourceCode;
@@ -13,5 +15,10 @@ void main(string[] args) {
 		writeln(staticAnalysisResult.CompilerErrors);
 		return;
 	}
-	//writeln(subprocessResult.StdoutContent);
+	
+	foreach(warning; staticAnalysisResult.Warnings) {
+		string warningLine = format("Line %d. %s: %s", warning.Line,
+																to!string(warning.Level), warning.Text);
+		writeln(warningLine);
+	}
 }
