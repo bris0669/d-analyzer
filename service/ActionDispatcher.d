@@ -1,4 +1,9 @@
 import ActionType;
+import Subprocess;
+import std.process;
+import std.stdio;
+import std.conv;
+import std.file;
 
 class ActionDispatcher {
 	private string sourceCode;
@@ -10,7 +15,24 @@ class ActionDispatcher {
 	}
 
 	string PerformAction() {
-		string result = "";
+		string result;
+		if (ActionType.ActionType.DCompilerRepresentation == actionType)
+			result = PerformDCompilerRepresentation();
+		return result;
+	}
+
+	string PerformDCompilerRepresentation() {
+		string result;
+
+		//std.file.chdir("../../bin");
+		
+		Subprocess subprocess = new Subprocess();
+		//ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
+		ProcessResult processResult = subprocess.Run("/bin/pwd", sourceCode);
+
+		if (processResult.StderrContent != "")
+			result = processResult.StderrContent;
+		result = processResult.StdoutContent;
 
 		return result;
 	}
