@@ -1,7 +1,9 @@
-all: build_service
+TARGET = service
 
-build_service:
-	ldc2 *.d -of=../www/cgi-bin/service
+all: build
+
+build:
+	ldc2 *.d ../Shared/Log.d -of=../www/cgi-bin/$(TARGET)
 
 clean:
-	rm ../www/cgi-bin/*
+	rm ../www/cgi-bin/$(TARGET)

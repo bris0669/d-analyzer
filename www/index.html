@@ -9,7 +9,9 @@ $(document).ready(function(){
     /*$(this).hide();*/
     var inputSourceCode = $("#textareaCode").val();
     //alert(inputSourceCode);
-    $("#preOutputCode").load("cgi-bin/service", { "isc": inputSourceCode});
+    var actionType = $("#actionTypeSelect").val();
+    //alert(actionType);
+    $("#preOutputCode").load("cgi-bin/service", { "action": actionType, "isc": inputSourceCode});
   });
 });
 </script>
@@ -18,7 +20,7 @@ d-analyzer - Static analysis for the D programming language
 <div id="content">
 	<div id="sourcecode">
 		<div class="headerText">Source Code:</div>
-		<select id="submitTypeSelect">
+		<select id="actionTypeSelect">
 			<option value="dEscapeAnalysis">D Escape Analysis</option>
 			<option value="cppEscapeAnalysis">C++ Escape Analysis</option>
 			<option value="cppSafeFormat">C++ Safe Format</option>

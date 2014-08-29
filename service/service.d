@@ -5,6 +5,7 @@ import std.string;
 import std.array;
 import LlvmirRepresentation;
 import Log;
+import std.algorithm;
 
 class Service {
 	this() {
@@ -29,6 +30,7 @@ class Service {
 		string inputSourceCode = "";
 		string line;
     if ((line = stdin.readln()) !is null) {
+			line = find(line, "isc=");
 			line = line[4..$];
 			inputSourceCode = decode(line);
 			dchar[dchar] translationTable = ['+' : ' '];
