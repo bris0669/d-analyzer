@@ -6,11 +6,8 @@
 <script>
 $(document).ready(function(){
   $("#submitBTN").click(function(){
-    /*$(this).hide();*/
     var inputSourceCode = $("#textareaCode").val();
-    //alert(inputSourceCode);
     var actionType = $("#actionTypeSelect").val();
-    //alert(actionType);
     $("#preOutputCode").load("cgi-bin/service", { "action": actionType, "isc": inputSourceCode});
   });
 });
