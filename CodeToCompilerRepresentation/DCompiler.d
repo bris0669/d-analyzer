@@ -12,7 +12,7 @@ class DCompiler {
 	}
 
 	ProcessResult Compile() {
-		string sourceFile = "/tmp/code.d";
+		string sourceFile = "/tmp/int/code.d";
 		std.file.write(sourceFile, sourceCode);
 		
 		return GetVerboseOutput(sourceFile);
@@ -20,11 +20,14 @@ class DCompiler {
 
 	ProcessResult GetVerboseOutput(string sourceFile) {
 		ProcessResult result = new ProcessResult();
-		auto process = execute(["/home/cbobby/.usrlocal/bin/ldc2", 
-		  "-vv", "-O0", "-output-ll", sourceFile]);
-		//if ((process.status != 0) && (process.status != 1)) {
+
+		string currentDir = executeShell("pwd").output;
+
+		string commandLine = "cd /tmp/int && /home/cbobby/.usrlocal/bin/ldc2 -vv -O0 " ~ sourceFile;
+		auto process = executeShell(commandLine);
+		//append("/tmp/int/lll.txt", currentDir ~ "ldc2 " ~ commandLine ~ " returned " ~ to!string(process.status) ~ "\n");
 		result.ExitStatus = process.status;
-		if ((process.status != 0) && (process.status != 1)) {
+		if (process.status != 0) {
 			result.StderrContent = process.output;
 			LogInfo("Compilation failed. Exit status " ~ to!string(process.status) ~ ". Output:\n" ~ process.output);
 		} else {
@@ -33,6 +36,8 @@ class DCompiler {
 		const string llvmIRFile = "code.ll";
 		if (exists(llvmIRFile))
 			std.file.remove(llvmIRFile);
+
+		executeShell("cd " ~ currentDir);
 		return result;
 	}
 

@@ -12,7 +12,7 @@ class CppCompiler {
 	}
 
 	ProcessResult Compile() {
-		string sourceFile = "/tmp/code.cpp";
+		string sourceFile = "/tmp/int/code.cpp";
 		std.file.write(sourceFile, sourceCode);
 		
 		return GetVerboseOutput(sourceFile);
