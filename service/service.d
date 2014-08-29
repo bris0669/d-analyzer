@@ -8,11 +8,8 @@ import Log;
 import std.algorithm;
 import std.regex;
 import std.conv;
-
-enum ActionType {
-	DEscapeAnalysis, CppEscapeAnalysis, CppSafeFormat, 
-	DCompilerRepresentation, CppCompilerRepresentation
-}
+import ActionDispatcher;
+import ActionType;
 
 class Service {
 	private string urlQuery;
@@ -32,7 +29,8 @@ class Service {
 			ActionType actionType = GetActionType(urlQuery);
 			string sourceCode = GetSourceCode(urlQuery);
 
-			string actionResultAsString = PerformAction(actionType, sourceCode);
+			auto actionDispatcher = new ActionDispatcher(actionType, sourceCode);
+			string actionResultAsString = actionDispatcher.PerformAction();
 			//LlvmirRepresentation llvmirRepresentation = new LlvmirRepresentation(inputSourceCode);
 			//writeln(llvmirRepresentation.GetRepresentation());
 			writeln(actionResultAsString);
@@ -70,11 +68,6 @@ class Service {
 		return sourceCode;
 	}
 
-	string PerformAction(ActionType actionType, string sourceCode) {
-		string result = "";
-
-		return result;
-	}
 }
  
 void main()
