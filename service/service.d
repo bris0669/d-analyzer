@@ -3,7 +3,6 @@ import std.process;
 import std.uri;
 import std.string;
 import std.array;
-import LlvmirRepresentation;
 import Log;
 import std.algorithm;
 import std.regex;
@@ -31,8 +30,6 @@ class Service {
 
 			auto actionDispatcher = new ActionDispatcher(actionType, sourceCode);
 			string actionResultAsString = actionDispatcher.PerformAction();
-			//LlvmirRepresentation llvmirRepresentation = new LlvmirRepresentation(inputSourceCode);
-			//writeln(llvmirRepresentation.GetRepresentation());
 			writeln(actionResultAsString);
 		} catch(Exception e) {
 			writeln(e);
@@ -42,7 +39,7 @@ class Service {
 	}
 
 	ActionType GetActionType(string urlQuery) {
-		//action=dCompilerRepresentation&isc=import+std.stdio%3B%0A%0Avoid+main()+%7B%0A++++writeln(%22Hello%2C+world!%22)%3B%0A%7D%0A
+		//action=dCompilerRepresentation
 		ActionType result;
 		string actionTypeAsString = matchFirst(urlQuery, regex(`action=(.*)\&`))[1];
 		string firstChar = actionTypeAsString[0..1];
@@ -52,7 +49,7 @@ class Service {
 	}
 
 	string GetSourceCode(string urlQuery) {
-		//action=dCompilerRepresentation&isc=import+std.stdio%3B%0A%0Avoid+main()+%7B%0A++++writeln(%22Hello%2C+world!%22)%3B%0A%7D%0A
+		//isc=import+std.stdio%3B%0A%0Avoid+main()+%7B%0A++++writeln(%22Hello%2C+world!%22)%3B%0A%7D%0A
 		string sourceCode = "";
 		string line = find(urlQuery, "isc=");
 		line = line[4..$];

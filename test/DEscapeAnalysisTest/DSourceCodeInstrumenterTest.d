@@ -22,6 +22,7 @@ class DSourceCodeInstrumenterTest {
 
 		string instrumentedSourceCode = dSourceCodeInstrumenter.Instrument();
 
+		assertStringContains("import std.traits;", instrumentedSourceCode);
 		assertStringContains("new Bar(); static new_Bar", instrumentedSourceCode);
 		assertStringContains("; alias TransitiveBaseTypeTuple!", instrumentedSourceCode);
 	}

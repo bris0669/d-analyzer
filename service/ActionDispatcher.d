@@ -16,18 +16,28 @@ class ActionDispatcher {
 
 	string PerformAction() {
 		string result;
-		if (ActionType.ActionType.DCompilerRepresentation == actionType)
+		if (ActionType.ActionType.DEscapeAnalysis == actionType)
+			result = PerformDEscapeAnalysis();
+		else if (ActionType.ActionType.DCompilerRepresentation == actionType)
 			result = PerformDCompilerRepresentation();
 		return result;
 	}
 
+	string PerformDEscapeAnalysis() {
+		return PerformUsingExternalProcess("./DEscapeAnalysis");
+	}
+
 	string PerformDCompilerRepresentation() {
+		return PerformUsingExternalProcess("./CodeToCompilerRepresentation");
+	}
+
+	string PerformUsingExternalProcess(string commandLine) {
 		string result;
 
 		std.file.chdir("../../bin");
 		
 		Subprocess subprocess = new Subprocess();
-		ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
+		ProcessResult processResult = subprocess.Run(commandLine, sourceCode);
 
 		if (processResult.StderrContent != "") {
 			result = processResult.StderrContent;
