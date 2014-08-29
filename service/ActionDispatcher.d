@@ -24,16 +24,16 @@ class ActionDispatcher {
 	string PerformDCompilerRepresentation() {
 		string result;
 
-		//std.file.chdir("../../bin");
+		std.file.chdir("../../bin");
 		
 		Subprocess subprocess = new Subprocess();
-		//ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
-		ProcessResult processResult = subprocess.Run("/bin/pwd", sourceCode);
+		ProcessResult processResult = subprocess.Run("./CodeToCompilerRepresentation", sourceCode);
 
-		if (processResult.StderrContent != "")
+		if (processResult.StderrContent != "") {
 			result = processResult.StderrContent;
+			return result;
+		}
 		result = processResult.StdoutContent;
-
 		return result;
 	}
 

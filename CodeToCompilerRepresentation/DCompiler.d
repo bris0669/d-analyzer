@@ -24,7 +24,7 @@ class DCompiler {
 		  "-vv", "-O0", "-output-ll", sourceFile]);
 		//if ((process.status != 0) && (process.status != 1)) {
 		result.ExitStatus = process.status;
-		if (process.status != 0) {
+		if ((process.status != 0) && (process.status != 1)) {
 			result.StderrContent = process.output;
 			LogInfo("Compilation failed. Exit status " ~ to!string(process.status) ~ ". Output:\n" ~ process.output);
 		} else {
